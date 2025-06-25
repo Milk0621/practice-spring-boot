@@ -17,12 +17,16 @@ public class NoticeController {
 	}
 
 	@GetMapping("detail")
-	public String detail() {
-		return "admin/board/notice/detail";
+	public String detail(Model model) {
+		model.addAttribute("pageTitle", "공지사항");
+		model.addAttribute("content", "admin/board/notice/detail :: content");
+		return "admin/inc/layout";
 	}
 	
 	@GetMapping("reg")
-	public String reg() {
-		return "admin/board/notice/reg";
+	public String reg(Model model) {
+		model.addAttribute("pageTitle", "공지사항 등록");
+		model.addAttribute("content", "admin/board/notice/reg :: content");
+		return "admin/inc/layout";
 	}
 }
