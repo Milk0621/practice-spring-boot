@@ -11,8 +11,8 @@ import com.newlecture.web.entity.NoticeView;
 @Mapper
 public interface NoticeDAO {
 	
-	@Select("select * from noticeview")
-	List<NoticeView> getList();
+	@Select("select * from noticeview where ${field} like concat('%', #{query}, '%') order by regdate desc limit #{offset}, #{size}")
+	List<NoticeView> getList(int offset, int size, String field, String query);
 	
 	Notice get(int id);
 
