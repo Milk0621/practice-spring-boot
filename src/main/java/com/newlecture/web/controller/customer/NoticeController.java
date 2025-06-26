@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.newlecture.web.entity.Notice;
+import com.newlecture.web.entity.NoticeView;
 import com.newlecture.web.service.NoticeService;
 
 //@RestController
@@ -22,7 +22,7 @@ public class NoticeController {
 	@GetMapping("list")
 	public String list(Model model) {
 		
-		List<Notice> list = service.getList();
+		List<NoticeView> list = service.getList();
 		
 		model.addAttribute("pageTitle", "공지사항");
 		model.addAttribute("content","customer/notice/list :: content");
