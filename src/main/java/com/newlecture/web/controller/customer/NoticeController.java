@@ -13,13 +13,18 @@ public class NoticeController {
 	@GetMapping("list")
 	public String list(Model model) {
 		
-		model.addAttribute("test", "hello~");
+		model.addAttribute("pageTitle", "공지사항");
+		model.addAttribute("content","customer/notice/list :: content");
 		
-		return "customer/notice/list";
+		return "customer/inc/layout";
 	}
 	
 	@RequestMapping("detail")
-	public String detail() {
-		return "customer/notice/detail";
+	public String detail(Model model) {
+		
+		model.addAttribute("pageTitle", "공지사항");
+		model.addAttribute("content", "customer/notice/detail :: content");
+		
+		return "customer/inc/layout";
 	}
 }
