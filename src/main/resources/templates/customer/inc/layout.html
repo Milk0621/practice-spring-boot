@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${pageTitle}"></title>
+	<link th:href="@{/css/customer/layout.css}" type="text/css" rel="stylesheet" />
+	<style>
+		#visual .content-container {
+			height: inherit;
+			display: flex;
+			align-items: center;
+	
+			background: url("/images/mypage/visual.png") no-repeat center;
+		}
+	</style>
+</head>
+<body>
+	<header th:replace="~{inc/header}"></header>
+	<div th:replace="~{customer/inc/visual}"></div>
+	<div id="body">
+		<div class="content-container clearfix">
+			<aside th:replace="~{customer/inc/aside}"></aside>
+	   		<div th:replace="__${content}__"></div>
+	   	</div>
+	</div>
+	<footer th:replace="~{inc/footer}"></footer>
+</body>
+</html>
+
