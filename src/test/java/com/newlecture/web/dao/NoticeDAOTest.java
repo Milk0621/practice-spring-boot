@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import com.newlecture.web.entity.NoticeView;
 
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@MybatisTest
+@MybatisTest //MyBatis의 매퍼를 직접 사용할때 사용, @SpringBootTest 사용해도 무방
 class NoticeDAOTest {
 	
 	@Autowired
