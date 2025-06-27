@@ -13,67 +13,61 @@ import com.newlecture.web.entity.NoticeView;
 @Repository
 public class MybatisNoticeDAO implements NoticeDAO{
 	
+	private NoticeDAO mapper;
+	
 	@Autowired
-	private SqlSession sqlSession;
+	public MybatisNoticeDAO(SqlSession sqlSession) {
+		mapper = sqlSession.getMapper(NoticeDAO.class);
+	}
 	
 	@Override
 	public List<NoticeView> getViewList(int offset, int size, String field, String query, boolean pub) {
-		NoticeDAO noticeDAO = sqlSession.getMapper(NoticeDAO.class);
-		return noticeDAO.getViewList(offset, size, field, query, pub);
+		return mapper.getViewList(offset, size, field, query, pub);
 	}
 
 	@Override
-	public int getCount(String field, String query) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getCount(String field, String query, boolean pub) {
+		return mapper.getCount(field, query, pub);
 	}
 
 	@Override
 	public NoticeView getView(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.getView(id);
 	}
 
 	@Override
 	public Notice getNext(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.getNext(id);
 	}
 
 	@Override
 	public Notice getPrev(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.getPrev(id);
 	}
 
 	@Override
 	public int update(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.update(notice);
 	}
 
 	@Override
 	public int insert(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.insert(notice);
 	}
 
 	@Override
 	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.delete(id);
 	}
 
 	@Override
 	public int deleteAll(int[] ids) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.deleteAll(ids);
 	}
 
 	@Override
 	public int updatePubAll(int[] ids, boolean pub) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.updatePubAll(ids, pub);
 	}
 
 }

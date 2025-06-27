@@ -15,11 +15,14 @@
 		order by regdate desc 
 		limit #{offset}, #{size}
 	</select>
-  	<select id="getCount">
+  	<select id="getCount" resultType="int">
   		select count(id) cnt from notice
-  		<where>
-			${field} like concat('%', #{query}, '%')
-		</where>
+  		<trim prefix="where" prefixOverrides="and | or"> 
+			<if test="query != null and query != ''">
+				${field} like concat('%', #{query}, '%')
+			</if>
+				and pub = #{pub}
+		</trim> 
   	</select>
   	<select id="getView" resultType="com.newlecture.web.entity.NoticeView">
   		select * from noticeview 

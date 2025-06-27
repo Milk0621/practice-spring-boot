@@ -16,34 +16,34 @@ public class NoticeServiceImp implements NoticeService{
 	private NoticeDAO noticeDAO;
 
 	@Override
-	public List<NoticeView> getViewList() {
-		return getViewList(1, "title", "");
+	public List<NoticeView> getViewList(boolean pub) {
+		return getViewList(1, "title", "", pub);
 	}
 
 	@Override
-	public List<NoticeView> getViewList(String field, String query) {
-		return getViewList(1, field, query);
+	public List<NoticeView> getViewList(String field, String query, boolean pub) {
+		return getViewList(1, field, query, pub);
 	}
 
 	@Override
-	public List<NoticeView> getViewList(int page, String field, String query) {
+	public List<NoticeView> getViewList(int page, String field, String query, boolean pub) {
 		
 		int size = 10;
 		int offset = 0 + (page-1) * size;
 		
-		List<NoticeView> list = noticeDAO.getViewList(offset, size, field, query);
+		List<NoticeView> list = noticeDAO.getViewList(offset, size, field, query, pub);
 		
 		return list;
 	}
 	
 	@Override
 	public int getCount() {
-		return getCount("title", "");
+		return getCount("title", "", true);
 	}
 
 	@Override
-	public int getCount(String field, String query) {
-		return noticeDAO.getCount(field, query);
+	public int getCount(String field, String query, boolean pub) {
+		return noticeDAO.getCount(field, query, pub);
 	}
 	
 	@Override
@@ -64,7 +64,11 @@ public class NoticeServiceImp implements NoticeService{
 
 	@Override
 	public int updatePubAll(int[] pubIds, int[] closeIds) {
-		return noticeDAO.updatePubAll(pubIds, closeIds);
+		int result = 0;
+		result += noticeDAO.updatePubAll(pubIds, true);
+		result += noticeDAO.updatePubAll(closeIds, false);
+		
+		return result;
 	}
 
 	@Override
