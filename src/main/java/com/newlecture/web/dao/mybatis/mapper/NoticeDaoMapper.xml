@@ -4,15 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecture.web.dao.NoticeDAO">
 
-	<select id="getList" resultType="com.newlecture.web.entity.NoticeView">
+	<select id="getViewList" resultType="com.newlecture.web.entity.NoticeView">
 		select * from noticeview 
-		where ${field} like concat('%', #{query}, '%') 
+		<trim prefix="where" prefixOverrides="and | or"> 
+			<if test="query != null or query != ''">
+				${field} like concat('%', #{query}, '%')
+			</if>
+				and pub = #{pub}
+		</trim> 
 		order by regdate desc 
 		limit #{offset}, #{size}
 	</select>
   	<select id="getCount">
   		select count(id) cnt from notice
-  		where ${field} like concat('%', #{query}, '%') 
+  		<where>
+			${field} like concat('%', #{query}, '%')
+		</where>
   	</select>
   	<select id="getView" resultType="com.newlecture.web.entity.NoticeView">
   		select * from noticeview 
@@ -26,16 +33,18 @@
   	</select>
   	<select id="getPrev" resultType="com.newlecture.web.entity.Notice">
   		select * from notice
-		where regdate &lt; (select regdate from notice where id = 7)
+		where regdate &lt; (select regdate from notice where id = #{id})
 		order by regdate desc limit 1
   	</select>
   	
   	<update id="update" parameterType="com.newlecture.web.entity.Notice">
-  		update set 
+  		update notice
+  		<set>
   			title = #{title},
   			content = #{content},
   			hit = #{hit},
   			pub = #{pub}
+  		</set>
   		where id = #{id}
   	</update>
   	<insert id="insert" parameterType="com.newlecture.web.entity.Notice">
@@ -46,4 +55,50 @@
   		delete from notice
   		where id = #{id}
   	</delete>
+  	
+  	<delete id="deleteAll">
+  		delete from notice
+  		where
+  		<foreach item="id" index="index" collection="ids"
+	        open="id in (" separator="," close=")" nullable="true">
+	          #{id}
+	    </foreach>
+  	</delete>
+  	
+  	<update id="updatePubAll">
+  		update notice
+  		<set>
+  			pub = #{pub}
+  		</set>
+  		where
+  		<foreach item="id" index="index" collection="ids"
+	        open="id in (" separator="," close=")" nullable="true">
+	          #{id}
+	    </foreach>
+  	</update>
+  	
+  	<!-- <update id="updatePubAll">
+  		update notice
+  		<set>
+  			pub = 
+  			case
+  				<foreach item="id" collection="pubIds">
+  					when id = #{id} then 1
+  				</foreach>
+  				<foreach item="id" collection="closeIds">
+  					when id = #{id} then 0
+  				</foreach>
+			end
+  		</set>
+  		where id in (
+  			<foreach item="id" separator="," collection="pubIds">
+				#{id}
+			</foreach>
+			,
+			<foreach item="id" separator="," collection="closeIds">
+				#{id}
+			</foreach>
+  		)
+  	</update> -->
+  	
 </mapper>
