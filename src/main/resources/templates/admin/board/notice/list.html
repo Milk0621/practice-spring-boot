@@ -42,7 +42,7 @@
 				<tbody>
 					<tr th:each="notice : ${list}">
 						<td th:text="${notice.id}">8</td>
-						<td class="title indent text-align-left"><a href="detail" th:text="${notice.title}">스프링 8강까지의 예제 코드</a></td>
+						<td class="title indent text-align-left"><a th:href="@{'/detail?id=' + ${notice.id}}" th:text="${notice.title}">스프링 8강까지의 예제 코드</a></td>
 						<td th:text="${notice.memberName}">newlec</td>
 						<td th:text="${notice.regDate}">
 							2019-08-18		

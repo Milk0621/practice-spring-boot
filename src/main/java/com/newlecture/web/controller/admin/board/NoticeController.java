@@ -25,8 +25,9 @@ public class NoticeController {
 		int page = 1;
 		String field = "title";
 		String query = "";
+		boolean pub = true;
 		
-		List<NoticeView> list = service.getList(page, field, query);
+		List<NoticeView> list = service.getViewList(page, field, query, pub);
 		
 		model.addAttribute("pageTitle", "공지사항");
 		model.addAttribute("content", "admin/board/notice/list :: content");
@@ -36,11 +37,11 @@ public class NoticeController {
 	}
 
 	@GetMapping("detail")
-	public String detail(Model model) {
+	public String detail(Model model, int id) {
 		model.addAttribute("pageTitle", "공지사항");
 		model.addAttribute("content", "admin/board/notice/detail :: content");
 		
-		Notice notice = service.get(1);
+		Notice notice = service.getView(id);
 				
 		return "admin/inc/layout";
 	}
