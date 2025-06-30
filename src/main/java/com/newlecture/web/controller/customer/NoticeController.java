@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.newlecture.web.entity.Notice;
 import com.newlecture.web.entity.NoticeView;
@@ -38,12 +39,18 @@ public class NoticeController {
 	}
 	
 	@GetMapping("detail")
-	public String detail(Model model, int id) {
+	public String detail(Model model, @RequestParam("id") int id) {
+		
+		NoticeView notice = service.getView(id);
+		Notice prev = service.getPrev(id);
+		Notice next = service.getNext(id);
 		
 		model.addAttribute("pageTitle", "공지사항");
 		model.addAttribute("content", "customer/notice/detail :: content");
 		
-		Notice notice = service.getView(id);
+		model.addAttribute("detail", notice);
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
 		
 		return "customer/inc/layout";
 	}
