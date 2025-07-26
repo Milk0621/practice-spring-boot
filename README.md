@@ -1,4 +1,4 @@
-# Spring Boot
+# Spring Boot Practice
 
 Spring Boot 웹 개발 연습용 프로젝트입니다.  
 [뉴렉처(Newlecture)의 강의](https://www.youtube.com/watch?v=4-0scAf5tpU&list=PLq8wAnVUcTFWVdN74gn8FksCqwfI_GuJY)를 참고하여 개인 학습 및 연습용으로 제작되었으며,  
